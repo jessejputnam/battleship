@@ -1,5 +1,6 @@
 import { Ship } from "./Ship";
-import { arrEqualCheck, missCheck } from "./arrEqualCheck";
+import { prevGuessCheck } from "./prevGuessCheck";
+import { hitCheck } from "./hitCheck";
 
 const Gameboard = function (coords0, coords1, coords2, coords3, coords4) {
   const carrier = Ship(coords0);
@@ -8,18 +9,26 @@ const Gameboard = function (coords0, coords1, coords2, coords3, coords4) {
   const submarine = Ship(coords3);
   const patrol = Ship(coords4);
 
-  const misses = [
-    [0, 1],
-    [0, 2],
-    [0, 3],
-    [2, 2]
-  ];
+  const misses = [];
 
   const hits = [];
 
   const recieveAttack = function (coords) {
-    if (missCheck(this, coords).includes(true)) return;
-    console.log("Checking");
+    if (prevGuessCheck(this, coords).includes(true)) return;
+
+    const guessCheck = hitCheck(this, coords);
+
+    if (guessCheck.every((x) => x === false)) {
+      misses.push(coords);
+      return this;
+    }
+
+    if (guessCheck.some((x) => x === true)) {
+      hits.push(coords);
+      console.log(coords, guessCheck.indexOf(true));
+    }
+
+    // console.log(hitCheck(this, coords));
   };
 
   return {

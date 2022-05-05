@@ -13,17 +13,7 @@ console.log(newShip);
 
 // console.log(newShip);
 
-const coords2 = [
-  [0, 1],
-  [0, 2],
-  [0, 3]
-];
-const coords1 = [
-  [1, 1],
-  [1, 2],
-  [1, 3],
-  [1, 4]
-];
+// carrier
 const coords0 = [
   [2, 2],
   [2, 3],
@@ -31,11 +21,26 @@ const coords0 = [
   [2, 5],
   [2, 6]
 ];
+// battleship
+const coords1 = [
+  [1, 1],
+  [1, 2],
+  [1, 3],
+  [1, 4]
+];
+// destroyer
+const coords2 = [
+  [0, 1],
+  [0, 2],
+  [0, 3]
+];
+// submarine
 const coords3 = [
   [3, 3],
   [3, 4],
   [3, 5]
 ];
+// patrol
 const coords4 = [
   [4, 4],
   [4, 5]
@@ -44,4 +49,4 @@ const coords4 = [
 const newGameboard = Gameboard(coords0, coords1, coords2, coords3, coords4);
 console.log(newGameboard);
 
-newGameboard.recieveAttack([1, 5]);
+newGameboard.recieveAttack([1, 4]);

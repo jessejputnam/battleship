@@ -1,17 +1,4 @@
-import { Ship } from "./Ship";
 import { Gameboard } from "./Gameboard";
-
-const newShip = Ship([
-  [0, 0],
-  [0, 1],
-  [0, 2]
-]);
-
-console.log(newShip.hit(0).hit(1).isSunk().sunk);
-
-console.log(newShip);
-
-// console.log(newShip);
 
 // carrier
 const coords0 = [
@@ -46,7 +33,29 @@ const coords4 = [
   [4, 5]
 ];
 
-const newGameboard = Gameboard(coords0, coords1, coords2, coords3, coords4);
+const testCoords = [coords0, coords1, coords2, coords3, coords4];
+
+const newGameboard = Gameboard(...testCoords);
 console.log(newGameboard);
 
-newGameboard.recieveAttack([1, 4]);
+// hit carrier
+newGameboard.recieveAttack([2, 6]);
+newGameboard.recieveAttack([0, 0]);
+newGameboard.recieveAttack([1, 5]);
+// hit patrol 1
+newGameboard.recieveAttack([4, 4]);
+// hit patrol 2
+newGameboard.recieveAttack([4, 5]);
+newGameboard.recieveAttack([2, 1]);
+newGameboard.recieveAttack([0, 0]);
+// hit battlehship
+newGameboard.recieveAttack([1, 1]);
+console.table(newGameboard.ships.carrier.location);
+console.table(newGameboard.ships.battleship.location);
+console.table(newGameboard.ships.destroyer.location);
+console.table(newGameboard.ships.submarine.location);
+console.table(newGameboard.ships.patrol.location);
+
+newGameboard.checkForDefeat();
+
+newGameboard.checkForDefeat();

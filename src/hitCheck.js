@@ -4,31 +4,31 @@ const hitCheck = function (gameboard, coords) {
   const output = [];
 
   output.push(
-    gameboard.carrier.location
+    gameboard.ships.carrier.location
       .map((coord) => arrEqualCheck(coord[0], coords))
       .includes(true)
   );
 
   output.push(
-    gameboard.battleship.location
+    gameboard.ships.battleship.location
       .map((coord) => arrEqualCheck(coord[0], coords))
       .includes(true)
   );
 
   output.push(
-    gameboard.destroyer.location
+    gameboard.ships.destroyer.location
       .map((coord) => arrEqualCheck(coord[0], coords))
       .includes(true)
   );
 
   output.push(
-    gameboard.submarine.location
+    gameboard.ships.submarine.location
       .map((coord) => arrEqualCheck(coord[0], coords))
       .includes(true)
   );
 
   output.push(
-    gameboard.patrol.location
+    gameboard.ships.patrol.location
       .map((coord) => arrEqualCheck(coord[0], coords))
       .includes(true)
   );

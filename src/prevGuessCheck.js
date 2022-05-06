@@ -7,7 +7,13 @@ const prevGuessCheck = (gameboard, coords) => {
     gameboard.misses.map((coord) => arrEqualCheck(coord, coords)).includes(true)
   );
 
+  output.push(
+    gameboard.hits.map((coord) => arrEqualCheck(coord, coords)).includes(true)
+  );
+
   return output;
 };
 
 export { prevGuessCheck };
+
+// carrier, battleship, destroyer, submarine, patrol

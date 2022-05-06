@@ -1,41 +1,20 @@
+// Check if a guessed coordinate hits a ship
 import { arrEqualCheck } from "./arrEqualCheck";
 
 const hitCheck = function (gameboard, coords) {
+  // Create array for ship hit check
   const output = [];
 
-  output.push(
-    gameboard.ships.carrier.location
-      .map((coord) => arrEqualCheck(coord[0], coords))
-      .includes(true)
-  );
-
-  output.push(
-    gameboard.ships.battleship.location
-      .map((coord) => arrEqualCheck(coord[0], coords))
-      .includes(true)
-  );
-
-  output.push(
-    gameboard.ships.destroyer.location
-      .map((coord) => arrEqualCheck(coord[0], coords))
-      .includes(true)
-  );
-
-  output.push(
-    gameboard.ships.submarine.location
-      .map((coord) => arrEqualCheck(coord[0], coords))
-      .includes(true)
-  );
-
-  output.push(
-    gameboard.ships.patrol.location
-      .map((coord) => arrEqualCheck(coord[0], coords))
-      .includes(true)
-  );
+  // Loop over ships to check if coords is a hit for any
+  for (let ship in gameboard.ships) {
+    output.push(
+      gameboard.ships[ship].location
+        .map((coord) => arrEqualCheck(coord[0], coords))
+        .includes(true)
+    );
+  }
 
   return output;
 };
 
 export { hitCheck };
-
-// carrier, battleship, destroyer, submarine, patrol

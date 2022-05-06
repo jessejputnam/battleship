@@ -1,3 +1,4 @@
+// Gameboard
 import { Ship } from "./Ship";
 import { prevGuessCheck } from "./prevGuessCheck";
 import { hitCheck } from "./hitCheck";
@@ -19,9 +20,9 @@ const Gameboard = function (coords0, coords1, coords2, coords3, coords4) {
   const misses = [];
   const hits = [];
 
-  const recieveAttack = function (coords) {
+  const receiveAttack = function (coords) {
     // Check if already guessed
-    if (prevGuessCheck(this, coords).includes(true)) return this;
+    if (prevGuessCheck(this, coords).includes(true)) return false;
 
     // Check if guess is a hit on a ship
     const hitCheckArr = hitCheck(this, coords);
@@ -57,33 +58,13 @@ const Gameboard = function (coords0, coords1, coords2, coords3, coords4) {
   };
 
   return {
-    // carrier,
-    // battleship,
-    // destroyer,
-    // submarine,
-    // patrol,
     defeat,
     ships,
     misses,
-    recieveAttack,
+    receiveAttack,
     hits,
     checkForDefeat
   };
 };
 
 export { Gameboard };
-
-// BOATS:
-//
-// Carrier     : C -- 5
-// Battleship  : B -- 4
-// Destroyer   : D -- 3
-// Submarine   : S -- 3
-// Patrol      : P -- 2
-//
-// Boat hit    : lowercase (i.e. D => d)
-
-// PLAY:
-//
-// Hit   : 1
-// Miss  : 0

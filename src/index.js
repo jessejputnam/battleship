@@ -1,4 +1,5 @@
 import { Gameboard } from "./Gameboard";
+import { Player } from "./Player";
 
 // carrier
 const coords0 = [
@@ -33,29 +34,50 @@ const coords4 = [
   [4, 5]
 ];
 
+const coords5 = [
+  [0, 0],
+  [1, 0],
+  [2, 0],
+  [3, 0],
+  [4, 0]
+];
+const coords6 = [
+  [4, 1],
+  [5, 1],
+  [6, 1],
+  [7, 1]
+];
+const coords7 = [
+  [2, 2],
+  [2, 3],
+  [2, 4]
+];
+const coords8 = [
+  [6, 1],
+  [7, 1],
+  [8, 1]
+];
+const coords9 = [
+  [8, 6],
+  [8, 7]
+];
+
 const testCoords = [coords0, coords1, coords2, coords3, coords4];
+const testCoords2 = [coords5, coords6, coords7, coords8, coords9];
 
-const newGameboard = Gameboard(...testCoords);
-console.log(newGameboard);
+const player = Player("player", testCoords);
+const computer = Player("computer", testCoords2);
 
-// hit carrier
-newGameboard.recieveAttack([2, 6]);
-newGameboard.recieveAttack([0, 0]);
-newGameboard.recieveAttack([1, 5]);
-// hit patrol 1
-newGameboard.recieveAttack([4, 4]);
-// hit patrol 2
-newGameboard.recieveAttack([4, 5]);
-newGameboard.recieveAttack([2, 1]);
-newGameboard.recieveAttack([0, 0]);
-// hit battlehship
-newGameboard.recieveAttack([1, 1]);
-console.table(newGameboard.ships.carrier.location);
-console.table(newGameboard.ships.battleship.location);
-console.table(newGameboard.ships.destroyer.location);
-console.table(newGameboard.ships.submarine.location);
-console.table(newGameboard.ships.patrol.location);
+console.log(player);
+console.log(computer);
 
-newGameboard.checkForDefeat();
+player.attack(computer.gameboard, [0, 0]);
+computer.attack(player.gameboard, [5, 5]);
+player.attack(computer.gameboard, [0, 0]);
+player.attack(computer.gameboard, [0, 1]);
+player.attack(computer.gameboard, [1, 0]);
+player.attack(computer.gameboard, [2, 0]);
+player.attack(computer.gameboard, [3, 0]);
+player.attack(computer.gameboard, [4, 0]);
 
-newGameboard.checkForDefeat();
+console.log(computer);

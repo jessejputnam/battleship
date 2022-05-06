@@ -1,7 +1,6 @@
 import { arrEqualCheck } from "./arrEqualCheck";
 
 const getHitShipIndex = function (ship, coords) {
-  console.log(ship.location.findIndex((el) => arrEqualCheck(el[0], coords)));
   return ship.location.findIndex((el) => arrEqualCheck(el[0], coords));
 };
 

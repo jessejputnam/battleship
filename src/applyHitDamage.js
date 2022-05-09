@@ -1,3 +1,5 @@
+"use strict";
+
 import { arrEqualCheck } from "./arrEqualCheck";
 
 const getHitShipIndex = function (ship, coords) {

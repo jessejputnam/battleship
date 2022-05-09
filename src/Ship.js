@@ -1,3 +1,5 @@
+"use strict";
+
 const Ship = function (coords) {
   // Create ship coordinate array = [[[coords], hit], [[coords], hit], [[coords], hit]]
   const location = coords.map((coord) => [coord, false]);

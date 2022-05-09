@@ -1,5 +1,7 @@
-import { Gameboard } from "./Gameboard";
+"use strict";
+
 import { Player } from "./Player";
+import { displayBoats } from "./domInteraction";
 
 // carrier
 const coords0 = [
@@ -62,22 +64,28 @@ const coords9 = [
   [8, 7]
 ];
 
-const testCoords = [coords0, coords1, coords2, coords3, coords4];
+const testCoords1 = [coords0, coords1, coords2, coords3, coords4];
 const testCoords2 = [coords5, coords6, coords7, coords8, coords9];
 
-const player = Player("player", testCoords);
+//* ############# GAMEFLOW ##################
+
+const player = Player("player", testCoords1);
 const computer = Player("computer", testCoords2);
 
 console.log(player);
 console.log(computer);
 
-player.attack(computer.gameboard, [0, 0]);
-computer.attack(player.gameboard, [5, 5]);
-player.attack(computer.gameboard, [0, 0]);
-player.attack(computer.gameboard, [0, 1]);
-player.attack(computer.gameboard, [1, 0]);
-player.attack(computer.gameboard, [2, 0]);
-player.attack(computer.gameboard, [3, 0]);
-player.attack(computer.gameboard, [4, 0]);
+displayBoats(player);
+displayBoats(computer);
 
-console.log(computer);
+// player.attack(computer.gameboard, [0, 0]);
+// computer.attack(player.gameboard, [5, 5]);
+// player.attack(computer.gameboard, [0, 0]);
+// player.attack(computer.gameboard, [0, 1]);
+// player.attack(computer.gameboard, [1, 0]);
+// player.attack(computer.gameboard, [2, 0]);
+// player.attack(computer.gameboard, [3, 0]);
+// player.attack(computer.gameboard, [4, 0]);
+
+// console.log(computer);
+// console.log(player);

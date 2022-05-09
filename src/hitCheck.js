@@ -1,4 +1,6 @@
 // Check if a guessed coordinate hits a ship
+"use strict";
+
 import { arrEqualCheck } from "./arrEqualCheck";
 
 const hitCheck = function (gameboard, coords) {

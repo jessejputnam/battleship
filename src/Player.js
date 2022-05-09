@@ -1,23 +1,27 @@
+"use strict";
+
 import { Gameboard } from "./Gameboard";
 
-const Player = function (playerName, coords, gameOver) {
+const Player = function (playerName, coords) {
   const gameboard = Gameboard(...coords);
   const guesses = [];
   const attack = function (enemyGameboard, coords) {
     const turn = enemyGameboard.receiveAttack(coords);
 
     // Exit if already guessed
-    if (turn === false) return;
+    if (turn === false) return this;
 
-    //! NEED TO STORE GAME OVER INFORMATION SOMWHERE (GAMEFLOW?)
+    guesses.push(coords);
+
+    //! NEED TO STORE GAME OVER INFORMATION SOMEWHERE (GAMEFLOW?)
     const defeatCheck = enemyGameboard.checkForDefeat();
     if (defeatCheck.defeat === true) {
       console.log(`Game over: ${this.name} wins`);
       return;
     }
-
-    //! CHANGE ACTIVE PLAYER
   };
+
+  //! CHANGE ACTIVE PLAYER
 
   return { playerName, guesses, attack, gameboard };
 };

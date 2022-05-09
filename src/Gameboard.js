@@ -1,4 +1,6 @@
 // Gameboard
+"use strict";
+
 import { Ship } from "./Ship";
 import { prevGuessCheck } from "./prevGuessCheck";
 import { hitCheck } from "./hitCheck";

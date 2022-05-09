@@ -15,15 +15,24 @@ body {
   align-items: center;
 }
 
+hr {
+  width: 95%;
+  border-color: rgba(87, 87, 87, 0.716);
+  box-shadow: 0 0 10px 2px rgba(2, 12, 62, 0.447);
+  border-radius: 10px;
+}
+
 .gameboard {
   height: clamp(300px, 48%, 450px);
   width: clamp(300px, 90%, 500px);
   background-color: rgba(240, 240, 240, 0.456);
-  /* border: solid 1px black; */
   border-radius: 3px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow: 0 0 10px 2px rgba(42, 42, 42, 0.488);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 .row {

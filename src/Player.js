@@ -5,6 +5,7 @@ import { Gameboard } from "./Gameboard";
 const Player = function (playerName, coords) {
   const gameboard = Gameboard(...coords);
   const guesses = [];
+
   const attack = function (enemyGameboard, coords) {
     const turn = enemyGameboard.receiveAttack(coords);
 
@@ -16,7 +17,7 @@ const Player = function (playerName, coords) {
     //! NEED TO STORE GAME OVER INFORMATION SOMEWHERE (GAMEFLOW?)
     const defeatCheck = enemyGameboard.checkForDefeat();
     if (defeatCheck.defeat === true) {
-      console.log(`Game over: ${this.name} wins`);
+      console.log(`Game over: ${this.playerName} wins`);
       return;
     }
   };

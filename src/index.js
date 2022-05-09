@@ -1,22 +1,23 @@
 "use strict";
 
 import { Player } from "./Player";
-import { displayBoats } from "./domInteraction";
+import { displayBoats, squares, gameboards } from "./domInteraction";
+import { getAttackCoords } from "./getAttackCoords";
 
 // carrier
 const coords0 = [
-  [2, 2],
-  [2, 3],
-  [2, 4],
-  [2, 5],
-  [2, 6]
+  [2, 9],
+  [3, 9],
+  [4, 9],
+  [5, 9],
+  [6, 9]
 ];
 // battleship
 const coords1 = [
-  [1, 1],
-  [1, 2],
-  [1, 3],
-  [1, 4]
+  [2, 0],
+  [3, 0],
+  [4, 0],
+  [5, 0]
 ];
 // destroyer
 const coords2 = [
@@ -32,8 +33,8 @@ const coords3 = [
 ];
 // patrol
 const coords4 = [
-  [4, 4],
-  [4, 5]
+  [7, 4],
+  [7, 5]
 ];
 
 const coords5 = [
@@ -55,28 +56,53 @@ const coords7 = [
   [2, 4]
 ];
 const coords8 = [
-  [6, 1],
-  [7, 1],
-  [8, 1]
+  [6, 4],
+  [6, 5],
+  [6, 6]
 ];
 const coords9 = [
   [8, 6],
   [8, 7]
 ];
 
-const testCoords1 = [coords0, coords1, coords2, coords3, coords4];
-const testCoords2 = [coords5, coords6, coords7, coords8, coords9];
-
 //* ############# GAMEFLOW ##################
+const board = gameboards[0];
 
+let gameOver = false;
+
+// Player chooses ship coordinates
+const testCoords1 = [coords0, coords1, coords2, coords3, coords4];
 const player = Player("player", testCoords1);
+
+// Computer randomly chooses ship coordinates
+const testCoords2 = [coords5, coords6, coords7, coords8, coords9];
 const computer = Player("computer", testCoords2);
 
 console.log(player);
 console.log(computer);
+console.log(board);
 
+// Display boats on board
 displayBoats(player);
 displayBoats(computer);
+
+// Game turn
+// while (gameOver === false) {
+//   // Player turn
+// }
+
+board.addEventListener("click", (e) => {
+  const square = e.target.closest(".square");
+  if (!square) return;
+
+  const coord = getAttackCoords(square);
+
+  console.log(coord);
+
+  player.attack(computer.gameboard, coord);
+  console.log(player);
+  console.log(computer);
+});
 
 // player.attack(computer.gameboard, [0, 0]);
 // computer.attack(player.gameboard, [5, 5]);

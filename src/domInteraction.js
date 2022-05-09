@@ -11,16 +11,14 @@ const displayBoats = function (player) {
     // Get ship coordinates
     player.gameboard.ships[ship].location.forEach((coord) => {
       const gameboard =
-        player.playerName === "computer" ? gameboards[1] : gameboards[0];
+        player.playerName === "computer" ? gameboards[0] : gameboards[1];
       const row = gameboard.children[coord[0][0]];
       const square = row.children[coord[0][1]];
 
       // Add ship background color
       square.classList.add(`square--${ship}`);
-      console.log(ship);
     });
   }
-  // console.log(rows);
 };
 
-export { displayBoats };
+export { displayBoats, squares, rows, gameboards };

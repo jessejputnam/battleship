@@ -1,91 +1,24 @@
-import { getRandomCoords, getNum } from "./getRandomCoords";
-import { arrEqualCheck } from "./arrEqualCheck";
+import { makeShip } from "./makeShip";
 
 ("use strict");
 
 const getCompShipCoords = function () {
   const allShips = [];
-  // let coords = getRandomCoords();
-  // create ship(length)
-  const makeShip = function (length) {
-    const shipArr = [];
-    const allShipsFlat = allShips.flat();
 
-    // Get first coordinate
-    let coord;
-    do {
-      coord = getRandomCoords();
-    } while (allShipsFlat.map((c) => arrEqualCheck(c, coord)).includes(true));
+  // Create carrier
+  allShips.push(makeShip(allShips, 5));
 
-    // Add first coordinate to ship array
-    shipArr.push(coord);
+  // Create battleship
+  allShips.push(makeShip(allShips, 4));
 
-    // Building from first coordinate
+  // Create destroyer
+  allShips.push(makeShip(allShips, 3));
 
-    // Get possible directions against edge of board.
-    /*
-    Array will output which of the 4 would be valid.
-    [x-positive, x-negative, y-positive, y-negative]
-    */
-    const possibleDirs = [
-      shipArr[0][0] + 5 > 9,
-      shipArr[0][0] - 5 < 0,
-      shipArr[0][1] + 5 > 9,
-      shipArr[0][1] - 5 < 0
-    ]
-      .map((x, i) => (x === false ? i : " "))
-      .filter((x) => x !== " ");
+  // Create submarine
+  allShips.push(makeShip(allShips, 3));
 
-    console.log(possibleDirs);
-    // Filter for previous ship coordinate incompatability
-    // allShipsFlat.
-
-    const dirChoice =
-      possibleDirs[Math.floor(Math.random() * possibleDirs.length)];
-    console.log(dirChoice);
-
-    /*
-    for (let i = 0; i < length; i++) {
-      const allShipsCheck = allShips.flat().map((c) => arrEqualCheck(c, coord));
-
-      // For first coordinate
-      if (i === 0) {
-        let coord;
-
-        // Get random coordinate
-        do {
-          coord = getRandomCoords();
-        } while (allShipsCheck.includes(true));
-
-        shipArr.push(coord);
-      }
-
-      // For building from first coordinate
-      if (i > 0) {
-        shipArr.push(i);
-        // Get possible directions against edge of board
-        // Array will output which of the 4 would be valid
-        // [x-positive, x-negative, y-positive, y-negative]
-        const possibleDirs = [
-          shipArr[0][0] + 5 > 9,
-          shipArr[0][0] - 5 < 0,
-          shipArr[0][1] + 5 > 9,
-          shipArr[0][1] - 5 < 0
-        ]
-          .map((x, i) => (x === false ? i : " "))
-          .filter((x) => x !== " ");
-
-        const dirChoice =
-          possibleDirs[Math.floor(Math.random() * possibleDirs.length)];
-        console.log(dirChoice);
-      }
-    }
-    console.log(shipArr);
-    return shipArr;
-    */
-  };
-
-  allShips.push(makeShip(3));
+  // Create patrol
+  allShips.push(makeShip(allShips, 2));
 
   return allShips;
 };

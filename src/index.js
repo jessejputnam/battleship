@@ -37,34 +37,6 @@ const coords4 = [
   [7, 5]
 ];
 
-const coords5 = [
-  [0, 0],
-  [1, 0],
-  [2, 0],
-  [3, 0],
-  [4, 0]
-];
-const coords6 = [
-  [4, 1],
-  [5, 1],
-  [6, 1],
-  [7, 1]
-];
-const coords7 = [
-  [2, 2],
-  [2, 3],
-  [2, 4]
-];
-const coords8 = [
-  [6, 4],
-  [6, 5],
-  [6, 6]
-];
-const coords9 = [
-  [8, 6],
-  [8, 7]
-];
-
 //* ############# GAMEFLOW ##################
 const board = gameboards[0];
 
@@ -75,8 +47,7 @@ const testCoords1 = [coords0, coords1, coords2, coords3, coords4];
 const player = Player("player", testCoords1);
 
 // Computer randomly chooses ship coordinates
-const testCoords2 = [coords5, coords6, coords7, coords8, coords9];
-const computer = Player("computer", testCoords2);
+const computer = Player("computer", getCompShipCoords());
 
 console.log(player);
 console.log(computer);
@@ -88,6 +59,10 @@ displayBoats(computer);
 board.addEventListener("click", (e) => {
   const square = e.target.closest(".square");
   if (!square) return;
+  console.log([
+    square.parentElement.classList[1].slice(-1),
+    square.classList[1].slice(-1)
+  ]);
 
   // Disallow already clicked squares
   if (square.classList.contains("square--hit")) return;
@@ -117,9 +92,6 @@ board.addEventListener("click", (e) => {
     return;
   }
 });
-
-const check = getCompShipCoords();
-console.log(check);
 
 // const check1 = [
 //   [

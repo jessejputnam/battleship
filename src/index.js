@@ -2,7 +2,7 @@
 
 import { Player } from "./Player";
 import { displayBoats, squares, gameboards } from "./domInteraction";
-// import { getAttackCoords } from "./getAttackCoords";
+import { getCompShipCoords } from "./getCompShipCoords";
 
 // carrier
 const coords0 = [
@@ -94,9 +94,9 @@ board.addEventListener("click", (e) => {
   if (square.classList.contains("square--miss")) return;
 
   // Player turn
-  console.log("Player turn");
+  // console.log("Player turn");
   player.attack(computer, square);
-  console.log(player);
+  // console.log(player);
 
   //  Check for defeat
   if (computer.defeat === true) {
@@ -105,11 +105,11 @@ board.addEventListener("click", (e) => {
     return;
   }
 
-  //! Deal with computer double guess
   //! Deal with computer intelligence?
-  console.log("computer turn");
+  // console.log("computer turn");
   computer.attack(player);
-  console.log(computer);
+  // console.log(computer);
+  console.log(computer.guesses);
 
   if (player.defeat === true) {
     console.log("Computer Wins!");
@@ -118,14 +118,5 @@ board.addEventListener("click", (e) => {
   }
 });
 
-// player.attack(computer.gameboard, [0, 0]);
-// computer.attack(player.gameboard, [5, 5]);
-// player.attack(computer.gameboard, [0, 0]);
-// player.attack(computer.gameboard, [0, 1]);
-// player.attack(computer.gameboard, [1, 0]);
-// player.attack(computer.gameboard, [2, 0]);
-// player.attack(computer.gameboard, [3, 0]);
-// player.attack(computer.gameboard, [4, 0]);
-
-// console.log(computer);
-// console.log(player);
+const check = getCompShipCoords();
+console.log(check);

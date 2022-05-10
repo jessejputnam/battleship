@@ -12,7 +12,7 @@ const Player = function (playerName, coords) {
     // console.log(enemy);
     const coords =
       enemy.playerName === "player"
-        ? getAttackCoordsComp()
+        ? getAttackCoordsComp(guesses)
         : getAttackCoordsPlayer(square);
 
     const turn = enemy.gameboard.receiveAttack(coords);

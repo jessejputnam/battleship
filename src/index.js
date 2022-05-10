@@ -120,3 +120,23 @@ board.addEventListener("click", (e) => {
 
 const check = getCompShipCoords();
 console.log(check);
+
+// const check1 = [
+//   [
+//     [1, 6],
+//     [2, 6],
+//     [3, 6]
+//   ],
+//   [
+//     [7, 2],
+//     [7, 3],
+//     [7, 4],
+//     [7, 5]
+//   ],
+//   [
+//     [0, 0],
+//     [0, 1]
+//   ]
+// ];
+// console.log(check1);
+// console.log(check1.flat());

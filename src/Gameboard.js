@@ -7,8 +7,6 @@ import { hitCheck } from "./hitCheck";
 import { applyHitDamage } from "./applyHitDamage";
 
 const Gameboard = function (coords0, coords1, coords2, coords3, coords4) {
-  let defeat = false;
-
   // Ships
   const ships = {
     carrier: Ship(coords0),
@@ -42,7 +40,7 @@ const Gameboard = function (coords0, coords1, coords2, coords3, coords4) {
     }
   };
 
-  const checkForDefeat = function () {
+  const checkAllSunk = function () {
     // Create array of all sunk checks
     const sunkArr = [];
 
@@ -52,20 +50,15 @@ const Gameboard = function (coords0, coords1, coords2, coords3, coords4) {
     }
 
     // Evaluate the array for all sunk checks === true
-    if (sunkArr.every((el) => el === true)) {
-      this.defeat = true;
-      return this;
-    }
-    return this;
+    return sunkArr.every((el) => el === true);
   };
 
   return {
-    defeat,
     ships,
     misses,
     receiveAttack,
     hits,
-    checkForDefeat
+    checkAllSunk
   };
 };
 

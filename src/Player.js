@@ -1,30 +1,33 @@
 "use strict";
 
 import { Gameboard } from "./Gameboard";
+import { getAttackCoordsComp, getAttackCoordsPlayer } from "./getAttackCoords";
 
 const Player = function (playerName, coords) {
   const gameboard = Gameboard(...coords);
   const guesses = [];
+  let defeat = false;
 
-  const attack = function (enemyGameboard, coords) {
-    const turn = enemyGameboard.receiveAttack(coords);
+  const attack = function (enemy, square) {
+    // console.log(enemy);
+    const coords =
+      enemy.playerName === "player"
+        ? getAttackCoordsComp()
+        : getAttackCoordsPlayer(square);
+
+    const turn = enemy.gameboard.receiveAttack(coords);
 
     // Exit if already guessed
     if (turn === false) return this;
 
+    // Add guess to array
     guesses.push(coords);
 
-    //! NEED TO STORE GAME OVER INFORMATION SOMEWHERE (GAMEFLOW?)
-    const defeatCheck = enemyGameboard.checkForDefeat();
-    if (defeatCheck.defeat === true) {
-      console.log(`Game over: ${this.playerName} wins`);
-      return;
-    }
+    // Check defeat
+    enemy.defeat = enemy.gameboard.checkAllSunk();
   };
 
-  //! CHANGE ACTIVE PLAYER
-
-  return { playerName, guesses, attack, gameboard };
+  return { playerName, guesses, attack, gameboard, defeat };
 };
 
 export { Player };

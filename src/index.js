@@ -2,7 +2,7 @@
 
 import { Player } from "./Player";
 import { displayBoats, squares, gameboards } from "./domInteraction";
-import { getAttackCoords } from "./getAttackCoords";
+// import { getAttackCoords } from "./getAttackCoords";
 
 // carrier
 const coords0 = [
@@ -80,28 +80,42 @@ const computer = Player("computer", testCoords2);
 
 console.log(player);
 console.log(computer);
-console.log(board);
 
 // Display boats on board
 displayBoats(player);
 displayBoats(computer);
 
-// Game turn
-// while (gameOver === false) {
-//   // Player turn
-// }
-
 board.addEventListener("click", (e) => {
   const square = e.target.closest(".square");
   if (!square) return;
 
-  const coord = getAttackCoords(square);
+  // Disallow already clicked squares
+  if (square.classList.contains("square--hit")) return;
+  if (square.classList.contains("square--miss")) return;
 
-  console.log(coord);
-
-  player.attack(computer.gameboard, coord);
+  // Player turn
+  console.log("Player turn");
+  player.attack(computer, square);
   console.log(player);
+
+  //  Check for defeat
+  if (computer.defeat === true) {
+    console.log("Player wins!");
+    //! Add display game over and restart
+    return;
+  }
+
+  //! Deal with computer double guess
+  //! Deal with computer intelligence?
+  console.log("computer turn");
+  computer.attack(player);
   console.log(computer);
+
+  if (player.defeat === true) {
+    console.log("Computer Wins!");
+    //! Add display game over and restart
+    return;
+  }
 });
 
 // player.attack(computer.gameboard, [0, 0]);

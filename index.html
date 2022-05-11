@@ -5,8 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Audiowide&family=Black+Ops+One&display=swap"
+      rel="stylesheet"
+    />
+
     <link href="./reset.css" rel="stylesheet" />
     <link href="./styles.css" rel="stylesheet" />
+
     <script defer src="./main.js"></script>
     <title>Battleship</title>
   </head>
@@ -14,6 +22,14 @@
   <!-- background: https://theinspirationgrid.com/animated-illustrations-by-dave-chenell/ -->
 
   <body>
+    <dialog id="menu__modal">
+      <h1 class="menu__title">Battleship</h1>
+      <h3 class="menu__winner"></h3>
+      <form method="dialog">
+        <button value="default" id="new-game">New Game</button>
+      </form>
+    </dialog>
+
     <main class="main__wrapper">
       <div id="comp-board" class="gameboard">
         <div class="row row--0">

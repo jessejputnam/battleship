@@ -13,6 +13,9 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  opacity: 1;
+
+  transition: opacity 1s;
 }
 
 hr {
@@ -56,29 +59,89 @@ hr {
 
 /* ACTION STATES */
 .square--hit {
-  background-color: rgba(205, 41, 41, 0.416);
+  background-color: #ff4141c6 !important;
+  border-width: 2px;
 }
 
 .square--miss {
-  background-color: rgba(128, 128, 128, 0.833);
+  background-color: rgba(164, 164, 164, 0.67) !important;
+  border-style: inset;
+  border-width: 2px;
+}
+
+.hidden--opacity {
+  opacity: 0;
 }
 
 .square--carrier {
   background-color: rgba(17, 153, 17, 0.547);
+  border-style: outset;
+  border-width: 2px;
 }
 
 .square--battleship {
   background-color: rgba(17, 153, 133, 0.547);
+  border-style: outset;
+  border-width: 2px;
 }
 
 .square--destroyer {
   background-color: rgba(17, 103, 153, 0.547);
+  border-style: outset;
+  border-width: 2px;
 }
 
 .square--submarine {
   background-color: rgba(60, 17, 153, 0.547);
+  border-style: outset;
+  border-width: 2px;
 }
 
 .square--patrol {
   background-color: rgba(112, 153, 17, 0.547);
+  border-style: outset;
+  border-width: 2px;
+}
+
+@keyframes guess-animation {
+  0% {
+    transform: scale(1);
+  }
+  12.5% {
+    transform: scale(1.2);
+    filter: brightness(200%);
+  }
+  25% {
+    transform: scale(1);
+    filter: brightness(100%);
+  }
+  37.5% {
+    transform: scale(1.2);
+    filter: brightness(200%);
+  }
+  50% {
+    transform: scale(1);
+    filter: brightness(100%);
+  }
+  62.5% {
+    transform: scale(1.2);
+    filter: brightness(200%);
+  }
+  75% {
+    transform: scale(1);
+    filter: brightness(100%);
+  }
+  87.5% {
+    transform: scale(1.2);
+    filter: brightness(200%);
+  }
+  99% {
+    transform: scale(1);
+    filter: brightness(100%);
+  }
+}
+
+.animate-guess {
+  animation-name: guess-animation;
+  animation-duration: 2s;
 }

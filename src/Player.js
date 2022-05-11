@@ -9,7 +9,6 @@ const Player = function (playerName, coords) {
   let defeat = false;
 
   const attack = function (enemy, square) {
-    // console.log(enemy);
     const coords =
       enemy.playerName === "player"
         ? getAttackCoordsComp(guesses)

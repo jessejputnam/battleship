@@ -1,77 +1,48 @@
 "use strict";
+import {
+  gameboards,
+  displayBoats,
+  updateUI,
+  resetUI,
+  addGuessAnimation
+} from "./domInteraction";
+import { newGame } from "./newGame";
 
-import { Player } from "./Player";
-import { displayBoats, squares, gameboards } from "./domInteraction";
-import { getCompShipCoords } from "./getCompShipCoords";
-
-// carrier
-const coords0 = [
-  [2, 9],
-  [3, 9],
-  [4, 9],
-  [5, 9],
-  [6, 9]
-];
-// battleship
-const coords1 = [
-  [2, 0],
-  [3, 0],
-  [4, 0],
-  [5, 0]
-];
-// destroyer
-const coords2 = [
-  [0, 1],
-  [0, 2],
-  [0, 3]
-];
-// submarine
-const coords3 = [
-  [3, 3],
-  [3, 4],
-  [3, 5]
-];
-// patrol
-const coords4 = [
-  [7, 4],
-  [7, 5]
-];
-
-//* ############# GAMEFLOW ##################
+//* ############# DOM Variables ##################
 const board = gameboards[0];
 
-let gameOver = false;
+//* ############# Gameflow ##################
+// Player Variables
+let player;
+let computer;
 
-// Player chooses ship coordinates
-const testCoords1 = [coords0, coords1, coords2, coords3, coords4];
-const player = Player("player", testCoords1);
+// New Game
+document.querySelector("#test").addEventListener("click", () => {
+  resetUI();
 
-// Computer randomly chooses ship coordinates
-const computer = Player("computer", getCompShipCoords());
+  const game = newGame();
 
-console.log(player);
-console.log(computer);
+  player = game[0];
+  computer = game[1];
 
-// Display boats on board
-displayBoats(player);
-displayBoats(computer);
+  displayBoats(player);
+});
 
+// Play Game
 board.addEventListener("click", (e) => {
   const square = e.target.closest(".square");
   if (!square) return;
-  console.log([
-    square.parentElement.classList[1].slice(-1),
-    square.classList[1].slice(-1)
-  ]);
+
+  // Disallow if gameover
+  if (player.defeat === true || computer.defeat === true) return;
 
   // Disallow already clicked squares
   if (square.classList.contains("square--hit")) return;
   if (square.classList.contains("square--miss")) return;
 
   // Player turn
-  // console.log("Player turn");
   player.attack(computer, square);
-  // console.log(player);
+  updateUI(computer);
 
   //  Check for defeat
   if (computer.defeat === true) {
@@ -80,35 +51,15 @@ board.addEventListener("click", (e) => {
     return;
   }
 
-  //! Deal with computer intelligence?
-  // console.log("computer turn");
+  // Computer turn
   computer.attack(player);
-  // console.log(computer);
-  console.log(computer.guesses);
+  updateUI(player);
+  addGuessAnimation(player, computer.guesses.slice(-1)[0]);
 
+  // Check for defeat
   if (player.defeat === true) {
     console.log("Computer Wins!");
     //! Add display game over and restart
     return;
   }
 });
-
-// const check1 = [
-//   [
-//     [1, 6],
-//     [2, 6],
-//     [3, 6]
-//   ],
-//   [
-//     [7, 2],
-//     [7, 3],
-//     [7, 4],
-//     [7, 5]
-//   ],
-//   [
-//     [0, 0],
-//     [0, 1]
-//   ]
-// ];
-// console.log(check1);
-// console.log(check1.flat());

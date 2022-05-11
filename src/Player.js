@@ -11,7 +11,7 @@ const Player = function (playerName, coords) {
   const attack = function (enemy, square) {
     const coords =
       enemy.playerName === "player"
-        ? getAttackCoordsComp(guesses)
+        ? getAttackCoordsComp(guesses, enemy)
         : getAttackCoordsPlayer(square);
 
     const turn = enemy.gameboard.receiveAttack(coords);

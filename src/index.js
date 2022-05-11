@@ -4,20 +4,27 @@ import {
   displayBoats,
   updateUI,
   resetUI,
-  addGuessAnimation
+  addGuessAnimation,
+  revealGameboards,
+  hideModal,
+  revealModal
 } from "./domInteraction";
 import { newGame } from "./newGame";
 
 //* ############# DOM Variables ##################
 const board = gameboards[0];
+const newGameBtn = document.querySelector("#new-game");
 
 //* ############# Gameflow ##################
 // Player Variables
 let player;
 let computer;
 
-// New Game
-document.querySelector("#test").addEventListener("click", () => {
+// Start New Game
+newGameBtn.addEventListener("click", () => {
+  revealGameboards();
+  hideModal();
+
   resetUI();
 
   const game = newGame();
@@ -25,10 +32,12 @@ document.querySelector("#test").addEventListener("click", () => {
   player = game[0];
   computer = game[1];
 
+  console.log(computer);
+
   displayBoats(player);
 });
 
-// Play Game
+// Turn Gameplay
 board.addEventListener("click", (e) => {
   const square = e.target.closest(".square");
   if (!square) return;
@@ -46,8 +55,7 @@ board.addEventListener("click", (e) => {
 
   //  Check for defeat
   if (computer.defeat === true) {
-    console.log("Player wins!");
-    //! Add display game over and restart
+    revealModal("Player");
     return;
   }
 
@@ -58,8 +66,7 @@ board.addEventListener("click", (e) => {
 
   // Check for defeat
   if (player.defeat === true) {
-    console.log("Computer Wins!");
-    //! Add display game over and restart
+    revealModal("Computer");
     return;
   }
 });

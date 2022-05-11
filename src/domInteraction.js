@@ -1,8 +1,26 @@
 "use strict";
 
 /* DOM VARIABLES */
+const main = document.querySelector(".main__wrapper");
+const modal = document.querySelector("#menu__modal");
+const modalText = document.querySelector(".menu__winner");
 const gameboards = document.querySelectorAll(".gameboard");
 const squares = document.querySelectorAll(".square");
+
+const hideModal = function () {
+  modal.classList.add("hidden--opacity");
+  setTimeout(() => modal.classList.add("hidden--z"), 1000);
+};
+
+const revealModal = function (winner) {
+  modalText.textContent = `${winner} wins!`;
+  modal.classList.remove("hidden--z");
+  modal.classList.remove("hidden--opacity");
+};
+
+const revealGameboards = function () {
+  main.classList.add("reveal--opacity");
+};
 
 const displayBoats = function (player) {
   // Loop over each ship of player
@@ -67,4 +85,13 @@ const addGuessAnimation = function (enemyPlayer, coords) {
   square.classList.add("animate-guess");
 };
 
-export { gameboards, displayBoats, updateUI, resetUI, addGuessAnimation };
+export {
+  gameboards,
+  displayBoats,
+  updateUI,
+  resetUI,
+  addGuessAnimation,
+  revealGameboards,
+  hideModal,
+  revealModal
+};

@@ -30,6 +30,60 @@
       </form>
     </dialog>
 
+    <div id="placement__modal" class="hidden--z">
+      <p>Use arrow keys to move ship.</p>
+      <div class="ships__container">
+        <div class="ships__row">
+          <img
+            src="./images/carrier.png"
+            class="ship ship--carrier ship--selected"
+            width="150px"
+          />
+          <img
+            src="./images/battleship.png"
+            class="ship ship--battleship"
+            width="120px"
+          />
+        </div>
+        <!-- end ships__row -->
+
+        <div class="ships__row">
+          <img
+            src="./images/destroyer.png"
+            class="ship ship--destroyer"
+            width="90px"
+          />
+          <img
+            src="./images/submarine.png"
+            class="ship ship--submarine"
+            width="90px"
+          />
+          <img
+            src="./images/patrol.png"
+            class="ship ship--patrol"
+            width="60px"
+          />
+        </div>
+        <!-- end ships__row -->
+      </div>
+      <!-- end ships__container -->
+
+      <div class="options__container">
+        <div id="spin-ship">
+          <img src="./images/spin.svg" class="spin__img" height="43px" />
+        </div>
+        <div id="select-ship">
+          <img src="./images/ok.svg" class="select__img" />
+        </div>
+      </div>
+      <!-- end options__container -->
+
+      <div class="begin__container">
+        <button id="begin-game">Begin Game</button>
+      </div>
+    </div>
+    <!-- end placement__modal -->
+
     <main class="main__wrapper">
       <div id="comp-board" class="gameboard">
         <div class="row row--0">

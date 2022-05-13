@@ -6,7 +6,7 @@
   TABLE OF CONTENTS
 
   # General Format
-  # Modal
+  # Modals
   # Gameboard
   # Action States
 */
@@ -27,7 +27,7 @@ body {
   background-size: cover;
   position: relative;
   padding-bottom: 50px;
-  padding-top: 10px;
+  padding-top: 5px;
 
   height: 100vh;
 }
@@ -52,7 +52,7 @@ hr {
   transition: opacity 1s;
 }
 
-/* ################## MODAL ################## */
+/* ################## MODALS ################## */
 #menu__modal {
   background: rgba(255, 255, 255, 0.741);
   z-index: 20;
@@ -89,6 +89,107 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#placement__modal {
+  height: clamp(280px, 43%, 430px);
+  width: clamp(280px, 85%, 480px);
+  border-radius: 10px;
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: rgba(255, 255, 255, 0.727);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  box-shadow: 0 0 5px 2px rgba(66, 66, 66, 0.617);
+  z-index: 100;
+  opacity: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  transition: opacity 1s;
+}
+
+#placement__modal > p {
+  text-align: center;
+}
+
+.ships__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ships__row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.ship {
+  transition: transform 0.4s;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .ship:hover {
+    transform: scale(1.1);
+  }
+}
+
+.ship--patrol {
+  margin-top: -5px;
+}
+
+.options__container {
+  display: flex;
+  justify-content: space-around;
+}
+
+#spin-ship {
+  border: solid 1px black;
+  border-radius: 50%;
+  background-color: white;
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.4s;
+}
+
+#select-ship {
+  border: solid 1px black;
+  background-color: white;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.4s;
+}
+
+@media (hover: hover) {
+  #select-ship:hover,
+  #spin-ship:hover {
+    transform: scale(1.1);
+  }
+}
+
+.begin__container {
+  display: flex;
+  justify-content: center;
+}
+
+#begin-game {
+  height: 35px;
+  width: 175px;
+  cursor: pointer;
 }
 
 /* ################## GAMEBOARD ################## */
@@ -138,7 +239,7 @@ hr {
 }
 
 .reveal--opacity {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .hidden--opacity {
@@ -147,6 +248,11 @@ hr {
 
 .hidden--z {
   z-index: -10 !important;
+}
+
+.ship--selected {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 5px rgb(255, 69, 69));
 }
 
 .square--carrier {

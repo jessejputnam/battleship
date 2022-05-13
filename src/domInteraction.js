@@ -29,13 +29,21 @@ const displayBoats = function (player) {
     player.gameboard.ships[ship].location.forEach((coord) => {
       const gameboard =
         player.playerName === "computer" ? gameboards[0] : gameboards[1];
-      const row = gameboard.children[coord[0][0]];
-      const square = row.children[coord[0][1]];
+      const square = gameboard.children[coord[0][0]].children[coord[0][1]];
 
       // Add ship background color
+      square.classList.add("square--ship");
       square.classList.add(`square--${ship}`);
     });
   }
+};
+
+const displayBoat = function (coords, shipName) {
+  coords.forEach((coord) => {
+    const square = gameboards[1].children[coord[0]].children[coord[1]];
+    square.classList.add("square--ship");
+    square.classList.add(`square--${shipName}`);
+  });
 };
 
 const updateUI = function (player) {
@@ -85,9 +93,12 @@ const addGuessAnimation = function (enemyPlayer, coords) {
   square.classList.add("animate-guess");
 };
 
+const moveShip = function () {};
+
 export {
   gameboards,
   displayBoats,
+  displayBoat,
   updateUI,
   resetUI,
   addGuessAnimation,

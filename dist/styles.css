@@ -152,8 +152,8 @@ hr {
   border: solid 1px black;
   border-radius: 50%;
   background-color: white;
-  height: 60px;
-  width: 60px;
+  height: 58px;
+  width: 58px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -253,6 +253,15 @@ hr {
 .ship--selected {
   transform: scale(1.2);
   filter: drop-shadow(0 0 5px rgb(255, 69, 69));
+}
+
+.ship--placed {
+  transform: scale(0.8);
+  filter: drop-shadow(0 0 5px rgb(81, 81, 81));
+}
+
+.square--potential {
+  background-color: rgba(128, 128, 128, 0.64);
 }
 
 .square--carrier {

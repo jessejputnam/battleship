@@ -3,6 +3,8 @@ import {
   gameboards,
   displayBoats,
   displayBoat,
+  displayPositionSelection,
+  removePositionSelection,
   updateUI,
   resetUI,
   addGuessAnimation,
@@ -11,7 +13,7 @@ import {
   revealModal
 } from "./domInteraction";
 import { newGame } from "./newGame";
-import { makeShip } from "./makeShip";
+import { makeRandomShip } from "./makeShip";
 import { isAlreadyGuessed } from "./arrEqualCheck";
 
 //* ########### Initial Ship Coords ###############
@@ -39,6 +41,7 @@ const testCoords1 = [coords0, coords1, coords2, coords3, coords4];
 
 //* ############# DOM Variables ##################
 const board = gameboards[0];
+const squares = document.querySelectorAll(".square");
 const newGameBtn = document.querySelector("#new-game");
 
 //* ############# Gameflow ##################
@@ -48,6 +51,7 @@ let computer;
 
 const placementModal = document.querySelector("#placement__modal");
 let shipCarrier, shipDestroyer, shipBattleship, shipPatrol, shipSubmarine;
+let verticalAlignment = false;
 
 const isValidMove = function (newShip, playerCoords) {
   const checkNewShip = newShip.map((coord) =>
@@ -75,37 +79,93 @@ newGameBtn.addEventListener("click", () => {
   placementModal.classList.remove("hidden--z");
   placementModal.classList.add("reveal--opacity");
 
-  shipCarrier = makeShip(playerCoords, 5);
-  displayBoat(shipCarrier, "carrier");
+  // Carrier
+  squares.forEach((square) => {
+    square.addEventListener("mouseenter", (e) => {
+      const row = +e.target.parentElement.classList[1].slice(-1);
+      const col = +e.target.classList[1].slice(-1);
+      if (verticalAlignment === false) {
+        const potentialCoords = [
+          [row, col],
+          [row, col + 1],
+          [row, col + 2],
+          [row, col + 3],
+          [row, col + 4]
+        ];
 
-  window.addEventListener("keydown", (e) => {
-    const key = e.key;
-    if (key === "ArrowLeft") {
-      const newCarrier = shipCarrier.map((coord) => [coord[0], coord[1] - 1]);
-      if (isValidMove(newCarrier, playerCoords)) shipCarrier = newCarrier;
-    }
+        if (!isValidMove(potentialCoords, playerCoords)) {
+          resetUI();
+          return;
+        }
 
-    if (key === "ArrowRight") {
-      const newCarrier = shipCarrier.map((coord) => [coord[0], coord[1] + 1]);
-      if (isValidMove(newCarrier, playerCoords)) shipCarrier = newCarrier;
-    }
+        displayPositionSelection(potentialCoords);
 
-    if (key === "ArrowDown") {
-      const newCarrier = shipCarrier.map((coord) => [coord[0] + 1, coord[1]]);
-      if (isValidMove(newCarrier, playerCoords)) shipCarrier = newCarrier;
-    }
+        // displayPositionSelection();
+        // e.target.classList.add("square--potential");
+      }
+    });
 
-    if (key === "ArrowUp") {
-      const newCarrier = shipCarrier.map((coord) => [coord[0] - 1, coord[1]]);
-      if (isValidMove(newCarrier, playerCoords)) shipCarrier = newCarrier;
-    }
+    square.addEventListener("mouseleave", (e) => {
+      const row = +e.target.parentElement.classList[1].slice(-1);
+      const col = +e.target.classList[1].slice(-1);
+      const potentialCoords = [
+        [row, col],
+        [row, col + 1],
+        [row, col + 2],
+        [row, col + 3],
+        [row, col + 4]
+      ];
 
-    resetUI();
-    // if (playerCoords.length > 0)
-    //   playerCoords.forEach((ship) => displayBoat(ship));
-    displayBoat(shipCarrier, "carrier");
-    // console.log(shipCarrier);
+      if (!isValidMove(potentialCoords, playerCoords)) {
+        resetUI();
+        return;
+      }
+
+      removePositionSelection(potentialCoords);
+    });
   });
+
+  // shipCarrier = makeRandomShip(playerCoords, 5);
+  // displayPositionSelection(shipCarrier);
+
+  // Battleship
+
+  // Destroyer
+
+  // Submarine
+
+  // Patrol
+
+  // displayBoat(shipCarrier, "carrier");
+
+  // window.addEventListener("keydown", (e) => {
+  //   const key = e.key;
+  //   if (key === "ArrowLeft") {
+  //     const newCarrier = shipCarrier.map((coord) => [coord[0], coord[1] - 1]);
+  //     if (isValidMove(newCarrier, playerCoords)) shipCarrier = newCarrier;
+  //   }
+
+  //   if (key === "ArrowRight") {
+  //     const newCarrier = shipCarrier.map((coord) => [coord[0], coord[1] + 1]);
+  //     if (isValidMove(newCarrier, playerCoords)) shipCarrier = newCarrier;
+  //   }
+
+  //   if (key === "ArrowDown") {
+  //     const newCarrier = shipCarrier.map((coord) => [coord[0] + 1, coord[1]]);
+  //     if (isValidMove(newCarrier, playerCoords)) shipCarrier = newCarrier;
+  //   }
+
+  //   if (key === "ArrowUp") {
+  //     const newCarrier = shipCarrier.map((coord) => [coord[0] - 1, coord[1]]);
+  //     if (isValidMove(newCarrier, playerCoords)) shipCarrier = newCarrier;
+  //   }
+
+  //   resetUI();
+  //   // if (playerCoords.length > 0)
+  //   //   playerCoords.forEach((ship) => displayBoat(ship));
+  //   displayBoat(shipCarrier, "carrier");
+  //   // console.log(shipCarrier);
+  // });
 
   // displayBoats();
 

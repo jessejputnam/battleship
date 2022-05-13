@@ -4,7 +4,7 @@ import { getRandomCoords } from "./getRandomCoords";
 import { arrEqualCheck } from "./arrEqualCheck";
 import { buildShipCoords, findPossibleDirs } from "./createRandomShips";
 
-const makeShip = function (allShips, length) {
+const makeRandomShip = function (allShips, length) {
   const allShipsCoords = allShips.flat();
 
   // Get first coordinate
@@ -49,4 +49,4 @@ const makeShip = function (allShips, length) {
   return shipChoicesFinal[Math.floor(Math.random() * shipChoicesFinal.length)];
 };
 
-export { makeShip };
+export { makeRandomShip };

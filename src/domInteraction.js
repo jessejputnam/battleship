@@ -46,6 +46,24 @@ const displayBoat = function (coords, shipName) {
   });
 };
 
+const displayPositionSelection = function (coords) {
+  console.log(coords);
+  coords.forEach((coord) => {
+    const square = gameboards[1].children[coord[0]].children[coord[1]];
+    square.classList.add("square--ship");
+    square.classList.add(`square--potential`);
+  });
+};
+
+const removePositionSelection = function (coords) {
+  coords.forEach((coord) => {
+    const square = gameboards[1].children[coord[0]].children[coord[1]];
+    console.log(square);
+    square.classList.remove("square--ship");
+    square.classList.remove(`square--potential`);
+  });
+};
+
 const updateUI = function (player) {
   // Loop over hits
   player.gameboard.hits.forEach((hit) => {
@@ -80,6 +98,7 @@ const resetUI = function () {
     square.classList.remove("square--destroyer");
     square.classList.remove("square--submarine");
     square.classList.remove("square--patrol");
+    square.classList.remove("square--potential");
   });
 };
 
@@ -93,12 +112,12 @@ const addGuessAnimation = function (enemyPlayer, coords) {
   square.classList.add("animate-guess");
 };
 
-const moveShip = function () {};
-
 export {
   gameboards,
   displayBoats,
   displayBoat,
+  displayPositionSelection,
+  removePositionSelection,
   updateUI,
   resetUI,
   addGuessAnimation,

@@ -47,7 +47,6 @@ const displayBoat = function (coords, shipName) {
 };
 
 const displayPositionSelection = function (coords) {
-  console.log(coords);
   coords.forEach((coord) => {
     const square = gameboards[1].children[coord[0]].children[coord[1]];
     square.classList.add("square--ship");
@@ -58,7 +57,6 @@ const displayPositionSelection = function (coords) {
 const removePositionSelection = function (coords) {
   coords.forEach((coord) => {
     const square = gameboards[1].children[coord[0]].children[coord[1]];
-    console.log(square);
     square.classList.remove("square--ship");
     square.classList.remove(`square--potential`);
   });
@@ -102,6 +100,12 @@ const resetUI = function () {
   });
 };
 
+const resetSelectionUI = function () {
+  squares.forEach((square) => {
+    square.classList.remove("square--potential");
+  });
+};
+
 const addGuessAnimation = function (enemyPlayer, coords) {
   const gameboard =
     enemyPlayer.playerName === "player" ? gameboards[1] : gameboards[0];
@@ -112,8 +116,24 @@ const addGuessAnimation = function (enemyPlayer, coords) {
   square.classList.add("animate-guess");
 };
 
+const revealAddShipMenu = function (placementModal) {
+  placementModal.classList.remove("hidden--z");
+  placementModal.classList.add("reveal--opacity");
+};
+
+const hideAddShipMenu = function (placementModal) {
+  placementModal.classList.remove("reveal--opacity");
+  setTimeout(() => placementModal.classList.add("hidden--z"), 800);
+};
+
+const removeSelectionFromShip = function (shipSelected) {
+  shipSelected.classList.remove("ship--selected");
+  shipSelected.classList.add("ship--placed");
+};
+
 export {
   gameboards,
+  revealAddShipMenu,
   displayBoats,
   displayBoat,
   displayPositionSelection,
@@ -123,5 +143,8 @@ export {
   addGuessAnimation,
   revealGameboards,
   hideModal,
-  revealModal
+  revealModal,
+  resetSelectionUI,
+  removeSelectionFromShip,
+  hideAddShipMenu
 };

@@ -4,190 +4,128 @@ import {
   displayBoats,
   displayBoat,
   displayPositionSelection,
-  removePositionSelection,
+  resetSelectionUI,
   updateUI,
   resetUI,
   addGuessAnimation,
   revealGameboards,
   hideModal,
-  revealModal
+  revealModal,
+  revealAddShipMenu,
+  removeSelectionFromShip,
+  hideAddShipMenu
 } from "./domInteraction";
 import { newGame } from "./newGame";
-import { makeRandomShip } from "./makeShip";
-import { isAlreadyGuessed } from "./arrEqualCheck";
-
-//* ########### Initial Ship Coords ###############
-// carrier
-// prettier-ignore
-const coords0 = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]];
-
-// battleship
-// prettier-ignore
-const coords1 = [[0, 1], [1, 1], [2, 1], [3, 1]];
-
-// destroyer
-// prettier-ignore
-const coords2 = [[0, 2], [1, 2], [2, 2]];
-
-// submarine
-// prettier-ignore
-const coords3 = [[0, 3], [1, 3], [2, 3]];
-
-// patrol
-// prettier-ignore
-const coords4 = [[0, 4], [1, 4]];
-
-const testCoords1 = [coords0, coords1, coords2, coords3, coords4];
+import { isValidMove } from "./isValidMove";
+import { createPotentialShip, getPotentialCoords } from "./createPotentialShip";
 
 //* ############# DOM Variables ##################
 const board = gameboards[0];
 const squares = document.querySelectorAll(".square");
 const newGameBtn = document.querySelector("#new-game");
+const placementModal = document.querySelector("#placement__modal");
+const btnRotateShip = document.querySelector("#spin-ship");
+const beginGameBtn = document.querySelector("#begin-game");
 
 //* ############# Gameflow ##################
-// Player Variables
+// Game Variables
+const shipOrder = ["carrier", "battleship", "destroyer", "submarine", "patrol"];
+const shipsHealth = [5, 4, 3, 3, 2];
+
 let player;
 let computer;
+let potentialCoords;
+let playerCoords;
 
-const placementModal = document.querySelector("#placement__modal");
-let shipCarrier, shipDestroyer, shipBattleship, shipPatrol, shipSubmarine;
-let verticalAlignment = false;
+let vertAlign = false;
 
-const isValidMove = function (newShip, playerCoords) {
-  const checkNewShip = newShip.map((coord) =>
-    isAlreadyGuessed(playerCoords, coord)
-  );
-  const checks = [
-    checkNewShip.every((x) => x === false),
-    newShip.flat().every((x) => x >= 0 && x < 10)
-  ];
-
-  return !checks.includes(false);
-};
+// Rotate horizontal or vertical ship alignment on selection screen
+btnRotateShip.addEventListener("click", () => {
+  vertAlign = !vertAlign;
+});
 
 // Start New Game
 newGameBtn.addEventListener("click", () => {
+  //? Reset visuals
   revealGameboards();
   hideModal();
 
   resetUI();
 
-  // Create array to save as coords
-  const playerCoords = [];
-
   // Reveal add ship menu
-  placementModal.classList.remove("hidden--z");
-  placementModal.classList.add("reveal--opacity");
+  revealAddShipMenu(placementModal);
 
-  // Carrier
+  //? Player Choose ship placement
+  // Set new PlayerCoords array
+  playerCoords = [];
+
   squares.forEach((square) => {
+    // MOUSE ENTER -- Hover over to see potential ship placement
     square.addEventListener("mouseenter", (e) => {
-      const row = +e.target.parentElement.classList[1].slice(-1);
-      const col = +e.target.classList[1].slice(-1);
-      if (verticalAlignment === false) {
-        const potentialCoords = [
-          [row, col],
-          [row, col + 1],
-          [row, col + 2],
-          [row, col + 3],
-          [row, col + 4]
-        ];
+      // Get coordinates
+      const coords = getPotentialCoords(e);
 
-        if (!isValidMove(potentialCoords, playerCoords)) {
-          resetUI();
-          return;
-        }
-
-        displayPositionSelection(potentialCoords);
-
-        // displayPositionSelection();
-        // e.target.classList.add("square--potential");
-      }
-    });
-
-    square.addEventListener("mouseleave", (e) => {
-      const row = +e.target.parentElement.classList[1].slice(-1);
-      const col = +e.target.classList[1].slice(-1);
-      const potentialCoords = [
-        [row, col],
-        [row, col + 1],
-        [row, col + 2],
-        [row, col + 3],
-        [row, col + 4]
-      ];
+      potentialCoords = createPotentialShip(
+        shipsHealth[playerCoords.length],
+        vertAlign,
+        coords
+      );
 
       if (!isValidMove(potentialCoords, playerCoords)) {
-        resetUI();
+        resetSelectionUI();
         return;
       }
 
-      removePositionSelection(potentialCoords);
+      displayPositionSelection(potentialCoords);
+    });
+
+    // MOUSE CLICK -- Store potential ship
+    square.addEventListener("click", () => {
+      // Exit if all ships chosen
+      if (playerCoords.length === 5) return;
+
+      if (!isValidMove(potentialCoords, playerCoords)) return;
+
+      // Remove red background; add gray to chosen ship
+      const shipSelected = document.querySelector(
+        `#ship-select-${playerCoords.length}`
+      );
+
+      removeSelectionFromShip(shipSelected);
+
+      // Display boat on screen
+      displayBoat(potentialCoords, shipOrder[playerCoords.length]);
+
+      // Add chosen ship to array
+      playerCoords.push(potentialCoords);
+
+      // Exit if all ships chosen
+      if (playerCoords.length === 5) return;
+
+      // Add red selector to next ship
+      document
+        .querySelector(`#ship-select-${playerCoords.length}`)
+        .classList.add("ship--selected");
+    });
+
+    // MOUSE LEAVE -- Erase previous potential ship placement on hover exit
+    square.addEventListener("mouseleave", (e) => {
+      resetSelectionUI();
     });
   });
+});
 
-  // shipCarrier = makeRandomShip(playerCoords, 5);
-  // displayPositionSelection(shipCarrier);
+beginGameBtn.addEventListener("click", () => {
+  if (playerCoords.length !== 5) return;
 
-  // Battleship
+  hideAddShipMenu(placementModal);
+  const game = newGame(playerCoords);
 
-  // Destroyer
+  player = game[0];
+  computer = game[1];
 
-  // Submarine
-
-  // Patrol
-
-  // displayBoat(shipCarrier, "carrier");
-
-  // window.addEventListener("keydown", (e) => {
-  //   const key = e.key;
-  //   if (key === "ArrowLeft") {
-  //     const newCarrier = shipCarrier.map((coord) => [coord[0], coord[1] - 1]);
-  //     if (isValidMove(newCarrier, playerCoords)) shipCarrier = newCarrier;
-  //   }
-
-  //   if (key === "ArrowRight") {
-  //     const newCarrier = shipCarrier.map((coord) => [coord[0], coord[1] + 1]);
-  //     if (isValidMove(newCarrier, playerCoords)) shipCarrier = newCarrier;
-  //   }
-
-  //   if (key === "ArrowDown") {
-  //     const newCarrier = shipCarrier.map((coord) => [coord[0] + 1, coord[1]]);
-  //     if (isValidMove(newCarrier, playerCoords)) shipCarrier = newCarrier;
-  //   }
-
-  //   if (key === "ArrowUp") {
-  //     const newCarrier = shipCarrier.map((coord) => [coord[0] - 1, coord[1]]);
-  //     if (isValidMove(newCarrier, playerCoords)) shipCarrier = newCarrier;
-  //   }
-
-  //   resetUI();
-  //   // if (playerCoords.length > 0)
-  //   //   playerCoords.forEach((ship) => displayBoat(ship));
-  //   displayBoat(shipCarrier, "carrier");
-  //   // console.log(shipCarrier);
-  // });
-
-  // displayBoats();
-
-  // Randomly place carrier
-
-  // const game = newGame(testCoords1);
-
-  // player = game[0];
-  // computer = game[1];
-
-  // displayBoats(player);
-
-  // // Choose ship positions
-  // shipCarrier = document.querySelectorAll(".square--carrier");
-  // shipBattleship = document.querySelectorAll(".square--battleship");
-  // shipDestroyer = document.querySelectorAll(".square--destroyer");
-  // shipSubmarine = document.querySelectorAll(".square--submarine");
-  // shipPatrol = document.querySelectorAll(".square--patrol");
-
-  // shipCarrier.forEach((square) => {
-  //   square.addEventListener("drag", (e) => {});
-  // });
+  resetUI();
+  displayBoats(player);
 });
 
 // Turn Gameplay

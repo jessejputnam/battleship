@@ -9,7 +9,7 @@ const isAlreadyGuessed = function (nestedArr, arr) {
   nestedArr.forEach((nest) => {
     output.push(arrEqualCheck(nest, arr));
   });
-  return output.some((x) => x === true);
+  return output.includes(true);
 };
 
 export { arrEqualCheck, isAlreadyGuessed };

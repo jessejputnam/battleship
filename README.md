@@ -20,9 +20,9 @@ A recreation of the classic boardgame Battleship for mobile and desktop users. P
 Users should be able to:
 
 - Choose where their ships are placed without allowing for invalid placement prior to gameflow
-  - include ability to place ships horizontally or vertically
+- include ability to place ships horizontally or vertically
 - Play against a computer opponent
-  - computer opponent should have strategy and not play randomly
+- computer opponent should have strategy and not play randomly
 - Choose grid square for turn guess
 - Track misses and hits on enemy board and player board
 - Play a new game on gameover
@@ -31,8 +31,8 @@ Users should be able to:
 - See hover states for all interactive elements throughout the site
 - Click the "About Me" call-to-action on the homepage and have the screen scroll down to the next section
 - Receive an error message when the contact form is submitted if:
-  - The `Name`, `Email Address` or `Message` fields are empty should show "This field is required"
-  - The `Email Address` is not formatted correctly should show "Please use a valid email address"
+- The `Name`, `Email Address` or `Message` fields are empty should show "This field is required"
+- The `Email Address` is not formatted correctly should show "Please use a valid email address"
 
 Programming process should include:
 
@@ -46,7 +46,7 @@ Programming process should include:
 
 ### Links
 
-- Live Site URL: [Add live site URL here](https://jessejputnam.github.io/battleship/)
+- Live Site URL: [Battleship](https://jessejputnam.github.io/battleship/)
 
 ## My process
 

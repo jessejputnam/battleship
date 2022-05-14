@@ -6,6 +6,7 @@ const modal = document.querySelector("#menu__modal");
 const modalText = document.querySelector(".menu__winner");
 const gameboards = document.querySelectorAll(".gameboard");
 const squares = document.querySelectorAll(".square");
+const selectionMenuShips = document.querySelectorAll(".ship");
 
 const hideModal = function () {
   modal.classList.add("hidden--opacity");
@@ -131,6 +132,14 @@ const removeSelectionFromShip = function (shipSelected) {
   shipSelected.classList.add("ship--placed");
 };
 
+const resetShipSelection = function () {
+  selectionMenuShips.forEach((ship) => {
+    ship.classList.remove("ship--placed");
+    if (ship.classList.contains("ship--carrier"))
+      ship.classList.add("ship--selected");
+  });
+};
+
 export {
   gameboards,
   revealAddShipMenu,
@@ -146,5 +155,6 @@ export {
   revealModal,
   resetSelectionUI,
   removeSelectionFromShip,
-  hideAddShipMenu
+  hideAddShipMenu,
+  resetShipSelection
 };

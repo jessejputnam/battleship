@@ -13,7 +13,8 @@ import {
   revealModal,
   revealAddShipMenu,
   removeSelectionFromShip,
-  hideAddShipMenu
+  hideAddShipMenu,
+  resetShipSelection
 } from "./domInteraction";
 import { newGame } from "./newGame";
 import { isValidMove } from "./isValidMove";
@@ -51,6 +52,9 @@ newGameBtn.addEventListener("click", () => {
   hideModal();
 
   resetUI();
+
+  // Reset add ship menu if next game
+  resetShipSelection();
 
   // Reveal add ship menu
   revealAddShipMenu(placementModal);
